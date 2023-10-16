@@ -4,12 +4,13 @@ import { ViewProps } from 'react-native';
 
 interface Props extends ViewProps {
     goBack: any;
+    title: string;
   }
 
-const Header = ({goBack}: Props) => {
+const Header = ({goBack, title}: Props) => {
   return (
     <Appbar.Header>
-      <Appbar.Content title="Products" />
+      <Appbar.Content title={title} />
       <Text onPress={goBack}>Back</Text>
     </Appbar.Header>
   );
