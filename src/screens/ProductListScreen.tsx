@@ -1,24 +1,34 @@
 import React from 'react';
-import { Text, View, ViewProps } from 'react-native';
-import { Button } from 'react-native-paper';
-import { RootScreenEnum } from '../constants/screen';
-import { NavigationProp } from '@react-navigation/native';
+import {View, ViewProps} from 'react-native';
+import {RootScreenEnum} from '../constants/screen';
+import {NavigationProp} from '@react-navigation/native';
 import Header from '../components/header';
+import Product from '../components/product';
+import {ScrollView} from 'react-native-gesture-handler';
+import useProduct from '../hooks/useProduct';
+import Loader from '../components/loader';
 
 export type RootParamList = {
   SplashScreen?: {};
   [RootScreenEnum.PRODUCT_LIST_SCREEN]?: {};
-}
+};
 
 interface Props extends ViewProps {
   navigation: NavigationProp<RootParamList>;
 }
 
 export default function ProductListScreen({navigation}: Props) {
+  const {products, loading} = useProduct();
+
   return (
     <View>
-      <Header goBack={navigation.goBack}/>
-      <Text>Products Lists</Text>
+      <Header goBack={navigation.goBack} />
+      {loading && <Loader />}
+      <ScrollView>
+        {products?.map(product => {
+          return <Product product={product} />;
+        })}
+      </ScrollView>
     </View>
   );
 }
