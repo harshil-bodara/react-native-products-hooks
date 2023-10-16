@@ -22,11 +22,11 @@ export default function ProductListScreen({navigation}: Props) {
 
   return (
     <View>
-      <Header goBack={navigation.goBack} />
+      <Header goBack={navigation.goBack} title='Products'/>
       {loading && <Loader />}
       <ScrollView>
-        {products?.map(product => {
-          return <Product product={product} />;
+        {products?.map((product, index) => {
+          return <Product product={product} key={index} navigation={navigation}/>;
         })}
       </ScrollView>
     </View>
